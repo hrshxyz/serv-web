@@ -9,7 +9,6 @@ if [[ $(id -u) -ne 0 ]] ; then
 	exit 1
 fi
 
-
 # Realiza update dos repositorios.
 echo " -- Atualizando Respositótios -- "
 apt update
@@ -21,25 +20,34 @@ apt upgrade -y
 # Nome dos pacotes que serão baixados.
 PACOTES="apache2 unzip"
 
+# URL e TMPdir da aplicação.
+URLAPP="https://github.com/denilsonbonatti/linux-site-dio/archive/refs/heads/main.zip"
+TMP="/tmp"
+APPNAME="main.zip"
+TMPAPP="${TMP}/${APPNAME}"
+
+# Diretório app apache
+APACHEDIR="/var/www/html"
+
 # Instala os pacotes.
 echo -e "\n -- Instalando pacotes ${PACOTES} -- "
 apt install ${PACOTES} -y
 
 # Faz o download da aplicação que será exposta pelo apache.
 echo -e "\n -- Baixando aplicação -- "
-wget -n -q --show-progress https://github.com/denilsonbonatti/linux-site-dio/archive/refs/heads/main.zip -O /tmp/main.zip
+wget -n -q --show-progress ${URLAPP} -O ${TMPAPP}
 
 # Remove index.html
 echo -e "\n -- Remove index.html padrão -- "
-rm -rf /var/www/html/index.html
+rm -rf ${APACHEDIR}/index.html
 
 # Extrai o pacote da aplicação.
 echo -e "\n -- Extrai pacote -- "
-unzip -o /tmp/main.zip "linux-site-dio-main/*" -d /tmp
+unzip -o ${TMPAPP} "linux-site-dio-main/*" -d ${TMP}
 
 # Move arquivos da aplicação para /var/www/html
 echo -e "\n -- Move arquivos da aplicação para /var/www/html -- "
-mv -fv /tmp/linux-site-dio-main/* /var/www/html
+mv -fv ${TMP}/linux-site-dio-main/* {APACHEDIR}
 
 # Inicia e habilita o apache na inicialização do S.O
 echo -e "\n -- Inicia e habilita o apache na inicialização do S.O -- "
