@@ -1,3 +1,3 @@
 # Bootcamp
 
-Script de Criação de Estrutura de Usuários, Diretórios e Permissões
+Script de Provisionamento de um Servidor Web (Apache)
