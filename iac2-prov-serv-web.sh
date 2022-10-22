@@ -47,7 +47,7 @@ unzip -o ${TMPAPP} "linux-site-dio-main/*" -d ${TMP}
 
 # Move arquivos da aplicação para /var/www/html
 echo -e "\n -- Move arquivos da aplicação para /var/www/html -- "
-mv -fv ${TMP}/linux-site-dio-main/* {APACHEDIR}
+mv -fv ${TMP}/linux-site-dio-main/* ${APACHEDIR}
 
 # Inicia e habilita o apache na inicialização do S.O
 echo -e "\n -- Inicia e habilita o apache na inicialização do S.O -- "
